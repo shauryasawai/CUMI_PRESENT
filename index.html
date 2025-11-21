@@ -14,9 +14,10 @@
         }
 
         body {
-            background-color: #f8fafc;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #1f2937;
             line-height: 1.6;
+            overflow: hidden;
         }
 
         .presentation-container {
@@ -24,26 +25,61 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
         }
 
         .slide-content {
             flex: 1;
-            padding: 3rem;
+            padding: 2rem;
             overflow-y: auto;
-            background-color: white;
+            position: relative;
+        }
+
+        .slide-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .slide-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+
+        .slide-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
         }
 
         .slide-content-inner {
             max-width: 1200px;
             margin: 0 auto;
-            height: 100%;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            min-height: calc(100vh - 180px);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .slide-navigation {
-            background-color: #f3f4f6;
-            border-top: 2px solid #d1d5db;
-            padding: 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1.5rem;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .nav-inner {
@@ -52,79 +88,131 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 2rem;
         }
 
         .nav-button {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            font-weight: 500;
+            gap: 0.75rem;
+            padding: 0.875rem 1.75rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .nav-button:active::before {
+            width: 300px;
+            height: 300px;
         }
 
         .nav-button:disabled {
-            background-color: #d1d5db;
-            color: #6b7280;
+            background: #e5e7eb;
+            color: #9ca3af;
             cursor: not-allowed;
+            box-shadow: none;
+            opacity: 0.6;
         }
 
         .nav-button:not(:disabled) {
-            background-color: #2563eb;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
 
         .nav-button:not(:disabled):hover {
-            background-color: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-button:not(:disabled):active {
+            transform: translateY(0);
         }
 
         .nav-info {
             text-align: center;
+            flex: 1;
         }
 
         .slide-title {
-            font-size: 0.875rem;
+            font-size: 1rem;
             font-weight: 600;
-            color: #4b5563;
+            color: #374151;
+            margin-bottom: 0.25rem;
         }
 
         .slide-counter {
-            font-size: 0.75rem;
+            font-size: 0.875rem;
             color: #6b7280;
-            margin-top: 0.25rem;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+            border-radius: 2px;
         }
 
         h1, h2, h3, h4 {
             color: #111827;
             margin-bottom: 1rem;
+            font-weight: 700;
         }
 
         h1 {
             font-size: 3rem;
-            font-weight: 700;
             line-height: 1.2;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         h2 {
             font-size: 2.25rem;
-            font-weight: 700;
+            color: #1f2937;
         }
 
         h3 {
             font-size: 1.875rem;
-            font-weight: 700;
+            color: #374151;
         }
 
         h4 {
             font-size: 1.5rem;
-            font-weight: 700;
+            color: #4b5563;
         }
 
         p {
             margin-bottom: 1rem;
+            color: #374151;
         }
 
         ul, ol {
@@ -134,6 +222,7 @@
 
         li {
             margin-bottom: 0.5rem;
+            color: #4b5563;
         }
 
         .flex-center {
@@ -141,7 +230,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100%;
+            min-height: 500px;
         }
 
         .space-y-4 > * + * {
@@ -221,27 +310,27 @@
         }
 
         .bg-blue-50 {
-            background-color: #eff6ff;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
         }
 
         .bg-green-50 {
-            background-color: #ecfdf5;
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
         }
 
         .bg-red-50 {
-            background-color: #fef2f2;
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
         }
 
         .bg-gray-50 {
-            background-color: #f9fafb;
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
         }
 
         .bg-purple-50 {
-            background-color: #faf5ff;
+            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
         }
 
         .bg-yellow-50 {
-            background-color: #fefce8;
+            background: linear-gradient(135deg, #fefce8 0%, #fef9c3 100%);
         }
 
         .bg-gray-100 {
@@ -249,7 +338,7 @@
         }
 
         .bg-gray-800 {
-            background-color: #1f2937;
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
         }
 
         .bg-white {
@@ -258,6 +347,7 @@
 
         .border-l-4 {
             border-left-width: 4px;
+            border-left-style: solid;
         }
 
         .border-blue-600 {
@@ -301,7 +391,14 @@
         }
 
         .rounded {
-            border-radius: 0.375rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .rounded:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
         }
 
         .grid {
@@ -366,17 +463,31 @@
 
         table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
         }
 
         th, td {
-            border: 1px solid #d1d5db;
-            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            padding: 1rem;
             text-align: left;
         }
 
         thead {
-            background-color: #e5e7eb;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background: #f9fafb;
+            transform: scale(1.01);
         }
 
         .bg-gray-200 {
@@ -384,23 +495,7 @@
         }
 
         .bg-green-100 {
-            background-color: #dcfce7;
-        }
-
-        .bg-green-50 {
-            background-color: #ecfdf5;
-        }
-
-        .bg-yellow-50 {
-            background-color: #fefce8;
-        }
-
-        .bg-red-50 {
-            background-color: #fef2f2;
-        }
-
-        .bg-gray-800 {
-            background-color: #1f2937;
+            background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
         }
 
         .text-white {
@@ -409,6 +504,14 @@
 
         .border-2 {
             border-width: 2px;
+            border-style: solid;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .border-2:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
         }
 
         .w-full {
@@ -439,25 +542,23 @@
             background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
         }
 
-        .from-blue-50 {
-            --tw-gradient-from: #eff6ff;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        .to-blue-100 {
-            --tw-gradient-to: #dbeafe;
-        }
-
-        .from-green-50 {
-            --tw-gradient-from: #ecfdf5;
-        }
-
-        .to-green-100 {
-            --tw-gradient-to: #d1fae5;
+        .slide-content-inner > * {
+            animation: fadeIn 0.6s ease-out;
         }
 
         @media (max-width: 768px) {
             .slide-content {
+                padding: 1rem;
+            }
+
+            .slide-content-inner {
                 padding: 1.5rem;
+                min-height: calc(100vh - 200px);
             }
 
             h1 {
@@ -477,13 +578,45 @@
             }
 
             .nav-inner {
-                flex-direction: column;
+                flex-direction: row;
                 gap: 1rem;
             }
 
-            .nav-info {
-                order: -1;
+            .nav-button {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.875rem;
             }
+
+            .nav-info {
+                display: none;
+            }
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-left: 4px solid;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .icon-wrapper {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 1.5rem;
         }
     </style>
 </head>
@@ -499,16 +632,19 @@
             <div class="nav-inner">
                 <button class="nav-button" id="prev-btn" disabled>
                     <i class="fas fa-chevron-left"></i>
-                    Previous
+                    <span>Previous</span>
                 </button>
                 
                 <div class="nav-info">
                     <p class="slide-title" id="slide-title">Engineering High-Performance Zirconia Powders</p>
                     <p class="slide-counter" id="slide-counter">Slide 1 of 16</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
                 </div>
                 
                 <button class="nav-button" id="next-btn">
-                    Next
+                    <span>Next</span>
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
@@ -523,7 +659,7 @@
                 title: "Engineering High-Performance Zirconia Powders for Cutting Tool Applications",
                 content: `
                     <div class="flex-center space-y-8">
-                        <h1 class="text-5xl font-bold text-gray-900 text-center">
+                        <h1 class="text-5xl font-bold text-center">
                             Engineering High-Performance<br>Zirconia Powders for<br>Cutting Tool Applications
                         </h1>
                         <div class="text-2xl text-gray-700 mt-8">
@@ -537,81 +673,96 @@
             },
 
             // Introduction
-{
-    title: "Introduction & Market Context",
-    content: `
-        <div class="space-y-6">
-            
-            <div class="bg-gray-50 p-6 rounded">
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">Industry Context</h3>
-                <p class="text-lg text-gray-800 leading-relaxed">
-                    Modern industries need cutting tools that can machine very tough alloys (Ti, Ni) at extremely high temperatures. Zirconia-based ceramic tools are gaining importance over conventional carbides because they maintain hardness at high temperature, resist chemical wear, and show long tool life during high-speed machining.
-                </p>
-            </div>
+            {
+                title: "Introduction & Market Context",
+                content: `
+                    <div class="space-y-6">
+                        
+                        <div class="bg-gray-50 p-6 rounded">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">Industry Context</h3>
+                            <p class="text-lg text-gray-800 leading-relaxed">
+                                Modern industries need cutting tools that can machine very tough alloys (Ti, Ni) at extremely high temperatures. Zirconia-based ceramic tools are gaining importance over conventional carbides because they maintain hardness at high temperature, resist chemical wear, and show long tool life during high-speed machining.
+                            </p>
+                        </div>
 
-            <div class="bg-gray-50 p-6 rounded">
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">Market Overview</h3>
-                <div class="grid grid-cols-2 gap-6">
-                    <div>
-                        <p class="text-lg text-gray-800">Global ceramic cutting tools market (2024):</p>
-                        <p class="text-4xl font-bold text-blue-600 mt-2">$2.8B</p>
-                    </div>
-                    <div>
-                        <p class="text-lg text-gray-800">Zirconia-based high-performance grades:</p>
-                        <p class="text-4xl font-bold text-blue-600 mt-2">18%</p>
-                    </div>
-                </div>
-            </div>
+                        <div class="bg-gray-50 p-6 rounded">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">Market Overview</h3>
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="stat-card" style="border-color: #2563eb;">
+                                    <div class="icon-wrapper">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <p class="text-lg text-gray-800">Global ceramic cutting tools market (2024):</p>
+                                    <p class="text-4xl font-bold text-blue-600 mt-2">$2.8B</p>
+                                </div>
+                                <div class="stat-card" style="border-color: #2563eb;">
+                                    <div class="icon-wrapper">
+                                        <i class="fas fa-percentage"></i>
+                                    </div>
+                                    <p class="text-lg text-gray-800">Zirconia-based high-performance grades:</p>
+                                    <p class="text-4xl font-bold text-blue-600 mt-2">18%</p>
+                                </div>
+                            </div>
+                        </div>
 
-            <div class="space-y-4">
-                <h3 class="text-2xl font-bold text-gray-900">Key Material Advantages</h3>
-                <p class="text-lg text-gray-800 leading-relaxed">
-                    Zirconia provides very high hardness, high melting temperature and transformation toughening (stress-induced tetragonal → monoclinic) — enabling excellent performance in high-speed machining.
-                </p>
-                <div class="grid grid-cols-3 gap-4">
-                    <div class="border-2 border-gray-300 p-4 rounded">
-                        <p class="text-sm text-gray-600">Hardness</p>
-                        <p class="text-2xl font-bold text-gray-900">12-14 GPa</p>
-                    </div>
-                    <div class="border-2 border-gray-300 p-4 rounded">
-                        <p class="text-sm text-gray-600">Fracture Toughness</p>
-                        <p class="text-2xl font-bold text-gray-900">8-12 MPa√m</p>
-                    </div>
-                    <div class="border-2 border-gray-300 p-4 rounded">
-                        <p class="text-sm text-gray-600">Melting Point</p>
-                        <p class="text-2xl font-bold text-gray-900">~2700°C</p>
-                    </div>
-                </div>
-            </div>
+                        <div class="space-y-4">
+                            <h3 class="text-2xl font-bold text-gray-900">Key Material Advantages</h3>
+                            <p class="text-lg text-gray-800 leading-relaxed">
+                                Zirconia provides very high hardness, high melting temperature and transformation toughening (stress-induced tetragonal → monoclinic) — enabling excellent performance in high-speed machining.
+                            </p>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="border-2 border-gray-300 p-4 stat-card" style="border-color: #059669;">
+                                    <div class="icon-wrapper" style="background: linear-gradient(135deg, #059669 0%, #047857 100%);">
+                                        <i class="fas fa-gem"></i>
+                                    </div>
+                                    <p class="text-sm text-gray-600">Hardness</p>
+                                    <p class="text-2xl font-bold text-gray-900">12-14 GPa</p>
+                                </div>
+                                <div class="border-2 border-gray-300 p-4 stat-card" style="border-color: #d97706;">
+                                    <div class="icon-wrapper" style="background: linear-gradient(135deg, #d97706 0%, #b45309 100%);">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <p class="text-sm text-gray-600">Fracture Toughness</p>
+                                    <p class="text-2xl font-bold text-gray-900">8-12 MPa√m</p>
+                                </div>
+                                <div class="border-2 border-gray-300 p-4 stat-card" style="border-color: #dc2626;">
+                                    <div class="icon-wrapper" style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);">
+                                        <i class="fas fa-fire"></i>
+                                    </div>
+                                    <p class="text-sm text-gray-600">Melting Point</p>
+                                    <p class="text-2xl font-bold text-gray-900">~2700°C</p>
+                                </div>
+                            </div>
+                        </div>
 
-            <div class="bg-red-50 border-l-4 border-red-600 p-4">
-                <p class="text-lg text-gray-800 leading-relaxed">
-                    <span class="font-bold">Key Challenge:</span> Batch-to-batch powder variability (particle size / distribution / phase) causes up to <span class="font-bold text-red-700">30% rejection</span> in precision tool manufacturing.
-                </p>
-                <p class="text-sm text-gray-700 mt-2">
-                    Consistent powder synthesis and dopant homogeneity are therefore critical.
-                </p>
-            </div>
+                        <div class="bg-red-50 border-l-4 border-red-600 p-4 rounded">
+                            <p class="text-lg text-gray-800 leading-relaxed">
+                                <span class="font-bold">Key Challenge:</span> Batch-to-batch powder variability (particle size / distribution / phase) causes up to <span class="font-bold text-red-700">30% rejection</span> in precision tool manufacturing.
+                            </p>
+                            <p class="text-sm text-gray-700 mt-2">
+                                Consistent powder synthesis and dopant homogeneity are therefore critical.
+                            </p>
+                        </div>
 
-            <div class="bg-blue-50 border-l-4 border-blue-600 p-4">
-                <h3 class="text-xl font-bold text-gray-900 mb-2">Research Focus</h3>
-                <ul class="list-disc text-gray-800 pl-5 space-y-1 text-base">
-                    <li>Optimize scalable zirconia powder synthesis (co-precipitation — oxalate route)</li>
-                    <li>Maintain uniform yttria stabilizer doping (≈3.0–3.5 mol% Y₂O₃) for stable tetragonal phase</li>
-                    <li>Control fine grain size (0.3–0.5 μm) during sintering to enhance transformation toughening</li>
-                </ul>
-                <p class="text-sm text-gray-700 mt-3">If controlled → tools become stronger, tougher, more reliable & cost-effective for industrial adoption.</p>
-            </div>
+                        <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Research Focus</h3>
+                            <ul class="list-disc text-gray-800 pl-5 space-y-1 text-base">
+                                <li>Optimize scalable zirconia powder synthesis (co-precipitation — oxalate route)</li>
+                                <li>Maintain uniform yttria stabilizer doping (≈3.0–3.5 mol% Y₂O₃) for stable tetragonal phase</li>
+                                <li>Control fine grain size (0.3–0.5 μm) during sintering to enhance transformation toughening</li>
+                            </ul>
+                            <p class="text-sm text-gray-700 mt-3">If controlled → tools become stronger, tougher, more reliable & cost-effective for industrial adoption.</p>
+                        </div>
 
-        </div>
-    `
-},
+                    </div>
+                `
+            },
             // Executive Summary
             {
                 title: "Executive Summary",
                 content: `
                     <div class="space-y-6">
-                        <div class="bg-blue-50 border-l-4 border-blue-600 p-6">
+                        <div class="bg-blue-50 border-l-4 border-blue-600 p-6 rounded">
                             <h3 class="text-2xl font-bold text-gray-900 mb-4">Key Technical Findings</h3>
                             <ul class="space-y-3 text-lg text-gray-800">
                                 <li>• Optimal synthesis: Co-precipitation with oxalate process</li>
@@ -623,11 +774,17 @@
                         </div>
                         
                         <div class="grid grid-cols-2 gap-6 mt-6">
-                            <div class="bg-green-50 p-4 rounded">
+                            <div class="bg-green-50 p-4 rounded stat-card" style="border-left: 4px solid #059669;">
+                                <div class="icon-wrapper" style="background: linear-gradient(135deg, #059669 0%, #047857 100%);">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
                                 <h4 class="font-bold text-gray-900 mb-2">Fracture Toughness</h4>
                                 <p class="text-3xl font-bold text-green-700">10-12 MPa√m</p>
                             </div>
-                            <div class="bg-green-50 p-4 rounded">
+                            <div class="bg-green-50 p-4 rounded stat-card" style="border-left: 4px solid #059669;">
+                                <div class="icon-wrapper" style="background: linear-gradient(135deg, #059669 0%, #047857 100%);">
+                                    <i class="fas fa-hammer"></i>
+                                </div>
                                 <h4 class="font-bold text-gray-900 mb-2">Flexural Strength</h4>
                                 <p class="text-3xl font-bold text-green-700">1150-1250 MPa</p>
                             </div>
@@ -635,264 +792,6 @@
                     </div>
                 `
             },
-            // Synthesis Methods Comparison
-            {
-                title: "Synthesis Routes: Comparative Analysis",
-                content: `
-                    <div class="space-y-6">
-                        <h3 class="text-2xl font-bold text-gray-900">Production Methods Comparison</h3>
-                        
-                        <div class="overflow-x-auto">
-                            <table class="w-full border-collapse border-2 border-gray-300">
-                                <thead class="bg-gray-200">
-                                    <tr>
-                                        <th class="border border-gray-300 p-3 text-left">Method</th>
-                                        <th class="border border-gray-300 p-3 text-left">Particle Size</th>
-                                        <th class="border border-gray-300 p-3 text-left">Scalability</th>
-                                        <th class="border border-gray-300 p-3 text-left">Cost</th>
-                                        <th class="border border-gray-300 p-3 text-left">Key Features</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="bg-green-50">
-                                        <td class="border border-gray-300 p-3 font-semibold">Co-precipitation</td>
-                                        <td class="border border-gray-300 p-3">50-200 nm</td>
-                                        <td class="border border-gray-300 p-3">High</td>
-                                        <td class="border border-gray-300 p-3">$12-18/kg</td>
-                                        <td class="border border-gray-300 p-3">Industry standard</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="border border-gray-300 p-3 font-semibold">Hydrothermal</td>
-                                        <td class="border border-gray-300 p-3">20-100 nm</td>
-                                        <td class="border border-gray-300 p-3">Moderate</td>
-                                        <td class="border border-gray-300 p-3">High</td>
-                                        <td class="border border-gray-300 p-3">&gt;95% crystallinity</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="border border-gray-300 p-3 font-semibold">Sol-Gel</td>
-                                        <td class="border border-gray-300 p-3">10-100 nm</td>
-                                        <td class="border border-gray-300 p-3">Low</td>
-                                        <td class="border border-gray-300 p-3">High</td>
-                                        <td class="border border-gray-300 p-3">Atomic-level control</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="border border-gray-300 p-3 font-semibold">Spray Drying</td>
-                                        <td class="border border-gray-300 p-3">1-50 μm</td>
-                                        <td class="border border-gray-300 p-3">High</td>
-                                        <td class="border border-gray-300 p-3">Low</td>
-                                        <td class="border border-gray-300 p-3">High agglomeration</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mt-4">
-                            <p class="text-lg font-semibold text-gray-900">Recommendation:</p>
-                            <p class="text-lg text-gray-800 mt-2">Co-precipitation with oxalate routes offers optimal balance for industrial applications</p>
-                        </div>
-                    </div>
-                `
-            },
-
-            // Process Flow Diagram
-            {
-                title: "Process Flow Diagram",
-                content: `
-                    <div class="flex flex-col items-center justify-center h-full">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-8">Zirconia Powder Production Workflow</h3>
-                        <div class="w-full max-w-4xl">
-                            <svg viewBox="0 0 800 600" class="w-full h-auto">
-                                <rect x="300" y="20" width="200" height="60" fill="#3B82F6" stroke="#1E40AF" stroke-width="2" rx="5"/>
-                                <text x="400" y="55" text-anchor="middle" fill="white" font-size="16" font-weight="bold">Precursor Preparation</text>
-                                
-                                <path d="M 400 80 L 400 120" stroke="#1E40AF" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
-                                
-                                <rect x="300" y="120" width="200" height="60" fill="#3B82F6" stroke="#1E40AF" stroke-width="2" rx="5"/>
-                                <text x="400" y="155" text-anchor="middle" fill="white" font-size="16" font-weight="bold">Co-precipitation</text>
-                                
-                                <path d="M 400 180 L 400 220" stroke="#1E40AF" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
-                                
-                                <rect x="300" y="220" width="200" height="60" fill="#3B82F6" stroke="#1E40AF" stroke-width="2" rx="5"/>
-                                <text x="400" y="255" text-anchor="middle" fill="white" font-size="16" font-weight="bold">Washing &amp; Filtration</text>
-                                
-                                <path d="M 400 280 L 400 320" stroke="#1E40AF" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
-                                
-                                <rect x="300" y="320" width="200" height="60" fill="#10B981" stroke="#059669" stroke-width="2" rx="5"/>
-                                <text x="400" y="355" text-anchor="middle" fill="white" font-size="16" font-weight="bold">Drying</text>
-                                
-                                <path d="M 400 380 L 400 420" stroke="#1E40AF" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
-                                
-                                <rect x="300" y="420" width="200" height="60" fill="#10B981" stroke="#059669" stroke-width="2" rx="5"/>
-                                <text x="400" y="455" text-anchor="middle" fill="white" font-size="16" font-weight="bold">Calcination</text>
-                                
-                                <path d="M 400 480 L 400 520" stroke="#1E40AF" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
-                                
-                                <rect x="300" y="520" width="200" height="60" fill="#8B5CF6" stroke="#6D28D9" stroke-width="2" rx="5"/>
-                                <text x="400" y="555" text-anchor="middle" fill="white" font-size="16" font-weight="bold">Final Powder Product</text>
-                                
-                                <text x="550" y="155" fill="#1F2937" font-size="14">pH 7-11, 60-95°C</text>
-                                <text x="550" y="355" fill="#1F2937" font-size="14">Prevent agglomeration</text>
-                                <text x="550" y="455" fill="#1F2937" font-size="14">600-900°C</text>
-                                
-                                <defs>
-                                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-                                        <polygon points="0 0, 10 5, 0 10" fill="#1E40AF"/>
-                                    </marker>
-                                </defs>
-                            </svg>
-                        </div>
-                    </div>
-                `
-            },
-
-            // Process-Property Relationships
-            {
-                title: "Process-Property Relationships",
-                content: `
-                    <div class="space-y-6">
-                        <h3 class="text-2xl font-bold text-gray-900">Three Strategic Approaches</h3>
-                        
-                        <div class="space-y-4">
-                            <div class="bg-blue-50 border-l-4 border-blue-600 p-4">
-                                <h4 class="text-xl font-bold text-gray-900 mb-2">Strategy 1: Design of Experiments (DoE)</h4>
-                                <ul class="space-y-2 text-gray-800">
-                                    <li>• Reduces experimental workload by <span class="font-semibold">60-80%</span></li>
-                                    <li>• Creates predictive models with <span class="font-semibold">R² &gt; 0.95</span></li>
-                                    <li>• Optimizes pH, temperature, and surfactant effects simultaneously</li>
-                                </ul>
-                            </div>
-
-                            <div class="bg-green-50 border-l-4 border-green-600 p-4">
-                                <h4 class="text-xl font-bold text-gray-900 mb-2">Strategy 2: Microstructure-Performance Mapping</h4>
-                                <ul class="space-y-2 text-gray-800">
-                                    <li>• Links grain size to mechanical properties</li>
-                                    <li>• Fine grains (&lt;0.5 μm): Stable tetragonal phase</li>
-                                    <li>• Coarse grains (&gt;0.5 μm): 30-50% strength reduction</li>
-                                </ul>
-                            </div>
-
-                            <div class="bg-purple-50 border-l-4 border-purple-600 p-4">
-                                <h4 class="text-xl font-bold text-gray-900 mb-2">Strategy 3: Dopant Optimization</h4>
-                                <ul class="space-y-2 text-gray-800">
-                                    <li>• Uniform Y₂O₃ distribution critical (CV &lt;5%)</li>
-                                    <li>• Wet-chemical co-precipitation achieves atomic mixing</li>
-                                    <li>• Non-uniform distribution causes 40-60% property loss</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                `
-            },
-
-            // Performance Data Table
-            {
-                title: "Grain Size Performance Correlation",
-                content: `
-                    <div class="space-y-6">
-                        <h3 class="text-2xl font-bold text-gray-900">Experimental Performance Data</h3>
-                        
-                        <div class="overflow-x-auto">
-                            <table class="w-full border-collapse border-2 border-gray-300">
-                                <thead class="bg-gray-800 text-white">
-                                    <tr>
-                                        <th class="border border-gray-300 p-4 text-left">Grain Size (μm)</th>
-                                        <th class="border border-gray-300 p-4 text-left">Tetragonal Phase (%)</th>
-                                        <th class="border border-gray-300 p-4 text-left">Fracture Toughness (MPa√m)</th>
-                                        <th class="border border-gray-300 p-4 text-left">Flexural Strength (MPa)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="bg-green-100">
-                                        <td class="border border-gray-300 p-4 font-bold">0.3</td>
-                                        <td class="border border-gray-300 p-4">98</td>
-                                        <td class="border border-gray-300 p-4">11.5</td>
-                                        <td class="border border-gray-300 p-4">1250</td>
-                                    </tr>
-                                    <tr class="bg-green-50">
-                                        <td class="border border-gray-300 p-4 font-bold">0.5</td>
-                                        <td class="border border-gray-300 p-4">92</td>
-                                        <td class="border border-gray-300 p-4">10.2</td>
-                                        <td class="border border-gray-300 p-4">1150</td>
-                                    </tr>
-                                    <tr class="bg-yellow-50">
-                                        <td class="border border-gray-300 p-4 font-bold">0.8</td>
-                                        <td class="border border-gray-300 p-4">75</td>
-                                        <td class="border border-gray-300 p-4">7.8</td>
-                                        <td class="border border-gray-300 p-4">950</td>
-                                    </tr>
-                                    <tr class="bg-red-50">
-                                        <td class="border border-gray-300 p-4 font-bold">1.2</td>
-                                        <td class="border border-gray-300 p-4">60</td>
-                                        <td class="border border-gray-300 p-4">6.1</td>
-                                        <td class="border border-gray-300 p-4">750</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="bg-blue-50 border-l-4 border-blue-600 p-4">
-                            <p class="text-lg font-semibold text-gray-900">Key Insight:</p>
-                            <p class="text-lg text-gray-800 mt-2">Target grain size: <span class="font-bold">0.3-0.5 μm</span> for optimal phase stability and mechanical properties</p>
-                        </div>
-                    </div>
-                `
-            },
-
-            // Yttria Distribution Effects
-            {
-                title: "Yttria Distribution Impact",
-                content: `
-                    <div class="space-y-6">
-                        <h3 class="text-2xl font-bold text-gray-900">Effect of Y₂O₃ Distribution Uniformity</h3>
-                        
-                        <div class="grid grid-cols-3 gap-4 mb-6">
-                            <div class="bg-green-100 border-2 border-green-600 p-4 rounded">
-                                <h4 class="text-xl font-bold text-gray-900 text-center mb-2">Uniform</h4>
-                                <p class="text-center text-sm text-gray-700 mb-3">CV &lt; 5%</p>
-                                <div class="bg-white p-3 rounded">
-                                    <p class="text-sm text-gray-800">✓ Fully tetragonal phase</p>
-                                    <p class="text-sm text-gray-800">✓ Even Y₂O₃ distribution</p>
-                                    <p class="text-2xl font-bold text-green-700 text-center mt-2">10-12 MPa√m</p>
-                                    <p class="text-center text-sm text-green-600 font-semibold">Stable &amp; Reliable</p>
-                                </div>
-                            </div>
-
-                            <div class="bg-yellow-100 border-2 border-yellow-600 p-4 rounded">
-                                <h4 class="text-xl font-bold text-gray-900 text-center mb-2">Gradient</h4>
-                                <p class="text-center text-sm text-gray-700 mb-3">CV 5-15%</p>
-                                <div class="bg-white p-3 rounded">
-                                    <p class="text-sm text-gray-800">⚠ Mixed t/c phases</p>
-                                    <p class="text-sm text-gray-800">⚠ Partial variation</p>
-                                    <p class="text-2xl font-bold text-yellow-700 text-center mt-2">6-8 MPa√m</p>
-                                    <p class="text-center text-sm text-yellow-600 font-semibold">40% Lower</p>
-                                </div>
-                            </div>
-
-                            <div class="bg-red-100 border-2 border-red-600 p-4 rounded">
-                                <h4 class="text-xl font-bold text-gray-900 text-center mb-2">Segregated</h4>
-                                <p class="text-center text-sm text-gray-700 mb-3">CV &gt; 15%</p>
-                                <div class="bg-white p-3 rounded">
-                                    <p class="text-sm text-gray-800">✗ Cubic &amp; monoclinic zones</p>
-                                    <p class="text-sm text-gray-800">✗ Clusters, poor mixing</p>
-                                    <p class="text-2xl font-bold text-red-700 text-center mt-2">4-6 MPa√m</p>
-                                    <p class="text-center text-sm text-red-600 font-semibold">60% Loss</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bg-blue-50 p-4 rounded">
-                            <h4 class="text-lg font-bold text-gray-900 mb-2">Achieving Uniform Distribution:</h4>
-                            <ul class="space-y-2 text-gray-800">
-                                <li>• Tight pH control (±0.1)</li>
-                                <li>• Temperature stability (±2°C)</li>
-                                <li>• Aging time &gt; 4 hours</li>
-                                <li>• Wet-chemical co-precipitation for atomic-scale mixing</li>
-                            </ul>
-                        </div>
-                    </div>
-                `
-            },
-
             // Phase Diagram
             {
                 title: "Zirconia Phase Stability",
@@ -926,12 +825,12 @@
                         </div>
 
                         <div class="grid grid-cols-2 gap-6 w-full max-w-3xl">
-                            <div class="bg-green-50 border-l-4 border-green-600 p-4">
+                            <div class="bg-green-50 border-l-4 border-green-600 p-4 rounded">
                                 <h4 class="font-bold text-gray-900 mb-2">Transformation Toughening</h4>
                                 <p class="text-gray-800">Stress-induced t → m transformation absorbs energy and stops crack propagation</p>
                             </div>
                             
-                            <div class="bg-blue-50 border-l-4 border-blue-600 p-4">
+                            <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
                                 <h4 class="font-bold text-gray-900 mb-2">Stabilization</h4>
                                 <p class="text-gray-800">3.0-3.5 mol% Y₂O₃ maintains tetragonal phase at room temperature</p>
                             </div>
@@ -939,7 +838,6 @@
                     </div>
                 `
             },
-
             // Hall-Petch Relationship
             {
                 title: "Grain Size Control & Hall-Petch Relationship",
@@ -961,7 +859,7 @@
                                     <text x="300" y="285" text-anchor="middle" font-size="14" font-weight="bold">Grain Size (μm)</text>
                                     <text x="25" y="150" text-anchor="middle" font-size="14" font-weight="bold" transform="rotate(-90 25 150)">Strength (MPa)</text>
                                     
-                                    <path d="M 100,80 Q 200,100 300,140 Q 400,180 500,220" stroke="#3B82F6" stroke-width="4" fill="none"/>
+                                    <path d="M 100,80 Q 200,100 300,140 Q 400,180 500,220" stroke="#667eea" stroke-width="4" fill="none"/>
                                     
                                     <circle cx="100" cy="80" r="6" fill="#EF4444"/>
                                     <circle cx="200" cy="105" r="6" fill="#F59E0B"/>
@@ -976,7 +874,7 @@
                             </div>
                         </div>
 
-                        <div class="bg-blue-50 border-l-4 border-blue-600 p-4">
+                        <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
                             <h4 class="text-lg font-bold text-gray-900 mb-2">Two-Step Sintering Process:</h4>
                             <ul class="space-y-2 text-gray-800">
                                 <li>• Heat to 1450°C (zero hold time)</li>
@@ -988,7 +886,260 @@
                     </div>
                 `
             },
+            // Process-Property Relationships
+            {
+                title: "Process-Property Relationships",
+                content: `
+                    <div class="space-y-6">
+                        <h3 class="text-2xl font-bold text-gray-900">Three Strategic Approaches</h3>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
+                                <h4 class="text-xl font-bold text-gray-900 mb-2">Strategy 1: Design of Experiments (DoE)</h4>
+                                <ul class="space-y-2 text-gray-800">
+                                    <li>• Reduces experimental workload by <span class="font-semibold">60-80%</span></li>
+                                    <li>• Creates predictive models with <span class="font-semibold">R² &gt; 0.95</span></li>
+                                    <li>• Optimizes pH, temperature, and surfactant effects simultaneously</li>
+                                </ul>
+                            </div>
 
+                            <div class="bg-green-50 border-l-4 border-green-600 p-4 rounded">
+                                <h4 class="text-xl font-bold text-gray-900 mb-2">Strategy 2: Microstructure-Performance Mapping</h4>
+                                <ul class="space-y-2 text-gray-800">
+                                    <li>• Links grain size to mechanical properties</li>
+                                    <li>• Fine grains (&lt;0.5 μm): Stable tetragonal phase</li>
+                                    <li>• Coarse grains (&gt;0.5 μm): 30-50% strength reduction</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-purple-50 border-l-4 border-purple-600 p-4 rounded">
+                                <h4 class="text-xl font-bold text-gray-900 mb-2">Strategy 3: Dopant Optimization</h4>
+                                <ul class="space-y-2 text-gray-800">
+                                    <li>• Uniform Y₂O₃ distribution critical (CV &lt;5%)</li>
+                                    <li>• Wet-chemical co-precipitation achieves atomic mixing</li>
+                                    <li>• Non-uniform distribution causes 40-60% property loss</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            // Synthesis Methods Comparison
+            {
+                title: "Synthesis Routes: Comparative Analysis",
+                content: `
+                    <div class="space-y-6">
+                        <h3 class="text-2xl font-bold text-gray-900">Production Methods Comparison</h3>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th class="p-3 text-left">Method</th>
+                                        <th class="p-3 text-left">Particle Size</th>
+                                        <th class="p-3 text-left">Scalability</th>
+                                        <th class="p-3 text-left">Cost</th>
+                                        <th class="p-3 text-left">Key Features</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-green-50">
+                                        <td class="p-3 font-semibold">Co-precipitation</td>
+                                        <td class="p-3">50-200 nm</td>
+                                        <td class="p-3">High</td>
+                                        <td class="p-3">$12-18/kg</td>
+                                        <td class="p-3">Industry standard</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 font-semibold">Hydrothermal</td>
+                                        <td class="p-3">20-100 nm</td>
+                                        <td class="p-3">Moderate</td>
+                                        <td class="p-3">High</td>
+                                        <td class="p-3">&gt;95% crystallinity</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 font-semibold">Sol-Gel</td>
+                                        <td class="p-3">10-100 nm</td>
+                                        <td class="p-3">Low</td>
+                                        <td class="p-3">High</td>
+                                        <td class="p-3">Atomic-level control</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 font-semibold">Spray Drying</td>
+                                        <td class="p-3">1-50 μm</td>
+                                        <td class="p-3">High</td>
+                                        <td class="p-3">Low</td>
+                                        <td class="p-3">High agglomeration</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mt-4 rounded">
+                            <p class="text-lg font-semibold text-gray-900">Recommendation:</p>
+                            <p class="text-lg text-gray-800 mt-2">Co-precipitation with oxalate routes offers optimal balance for industrial applications</p>
+                        </div>
+                    </div>
+                `
+            },
+
+            // Process Flow Diagram
+            {
+                title: "Process Flow Diagram",
+                content: `
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-8">Zirconia Powder Production Workflow</h3>
+                        <div class="w-full max-w-4xl">
+                            <svg viewBox="0 0 800 600" class="w-full h-auto">
+                                <rect x="300" y="20" width="200" height="60" fill="#667eea" stroke="#1E40AF" stroke-width="2" rx="5"/>
+                                <text x="400" y="55" text-anchor="middle" fill="white" font-size="16" font-weight="bold">Precursor Preparation</text>
+                                
+                                <path d="M 400 80 L 400 120" stroke="#1E40AF" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                                
+                                <rect x="300" y="120" width="200" height="60" fill="#667eea" stroke="#1E40AF" stroke-width="2" rx="5"/>
+                                <text x="400" y="155" text-anchor="middle" fill="white" font-size="16" font-weight="bold">Co-precipitation</text>
+                                
+                                <path d="M 400 180 L 400 220" stroke="#1E40AF" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                                
+                                <rect x="300" y="220" width="200" height="60" fill="#667eea" stroke="#1E40AF" stroke-width="2" rx="5"/>
+                                <text x="400" y="255" text-anchor="middle" fill="white" font-size="16" font-weight="bold">Washing &amp; Filtration</text>
+                                
+                                <path d="M 400 280 L 400 320" stroke="#1E40AF" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                                
+                                <rect x="300" y="320" width="200" height="60" fill="#10B981" stroke="#059669" stroke-width="2" rx="5"/>
+                                <text x="400" y="355" text-anchor="middle" fill="white" font-size="16" font-weight="bold">Drying</text>
+                                
+                                <path d="M 400 380 L 400 420" stroke="#1E40AF" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                                
+                                <rect x="300" y="420" width="200" height="60" fill="#10B981" stroke="#059669" stroke-width="2" rx="5"/>
+                                <text x="400" y="455" text-anchor="middle" fill="white" font-size="16" font-weight="bold">Calcination</text>
+                                
+                                <path d="M 400 480 L 400 520" stroke="#1E40AF" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                                
+                                <rect x="300" y="520" width="200" height="60" fill="#8B5CF6" stroke="#6D28D9" stroke-width="2" rx="5"/>
+                                <text x="400" y="555" text-anchor="middle" fill="white" font-size="16" font-weight="bold">Final Powder Product</text>
+                                
+                                <text x="550" y="155" fill="#1F2937" font-size="14">pH 7-11, 60-95°C</text>
+                                <text x="550" y="355" fill="#1F2937" font-size="14">Prevent agglomeration</text>
+                                <text x="550" y="455" fill="#1F2937" font-size="14">600-900°C</text>
+                                
+                                <defs>
+                                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                        <polygon points="0 0, 10 5, 0 10" fill="#1E40AF"/>
+                                    </marker>
+                                </defs>
+                            </svg>
+                        </div>
+                    </div>
+                `
+            },
+            // Performance Data Table
+            {
+                title: "Grain Size Performance Correlation",
+                content: `
+                    <div class="space-y-6">
+                        <h3 class="text-2xl font-bold text-gray-900">Experimental Performance Data</h3>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th class="p-4 text-left">Grain Size (μm)</th>
+                                        <th class="p-4 text-left">Tetragonal Phase (%)</th>
+                                        <th class="p-4 text-left">Fracture Toughness (MPa√m)</th>
+                                        <th class="p-4 text-left">Flexural Strength (MPa)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-green-100">
+                                        <td class="p-4 font-bold">0.3</td>
+                                        <td class="p-4">98</td>
+                                        <td class="p-4">11.5</td>
+                                        <td class="p-4">1250</td>
+                                    </tr>
+                                    <tr class="bg-green-50">
+                                        <td class="p-4 font-bold">0.5</td>
+                                        <td class="p-4">92</td>
+                                        <td class="p-4">10.2</td>
+                                        <td class="p-4">1150</td>
+                                    </tr>
+                                    <tr class="bg-yellow-50">
+                                        <td class="p-4 font-bold">0.8</td>
+                                        <td class="p-4">75</td>
+                                        <td class="p-4">7.8</td>
+                                        <td class="p-4">950</td>
+                                    </tr>
+                                    <tr class="bg-red-50">
+                                        <td class="p-4 font-bold">1.2</td>
+                                        <td class="p-4">60</td>
+                                        <td class="p-4">6.1</td>
+                                        <td class="p-4">750</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
+                            <p class="text-lg font-semibold text-gray-900">Key Insight:</p>
+                            <p class="text-lg text-gray-800 mt-2">Target grain size: <span class="font-bold">0.3-0.5 μm</span> for optimal phase stability and mechanical properties</p>
+                        </div>
+                    </div>
+                `
+            },
+            // Yttria Distribution Effects
+            {
+                title: "Yttria Distribution Impact",
+                content: `
+                    <div class="space-y-6">
+                        <h3 class="text-2xl font-bold text-gray-900">Effect of Y₂O₃ Distribution Uniformity</h3>
+                        
+                        <div class="grid grid-cols-3 gap-4 mb-6">
+                            <div class="bg-green-100 border-2 border-green-600 p-4 rounded stat-card" style="border-color: #059669;">
+                                <h4 class="text-xl font-bold text-gray-900 text-center mb-2">Uniform</h4>
+                                <p class="text-center text-sm text-gray-700 mb-3">CV &lt; 5%</p>
+                                <div class="bg-white p-3 rounded">
+                                    <p class="text-sm text-gray-800">✓ Fully tetragonal phase</p>
+                                    <p class="text-sm text-gray-800">✓ Even Y₂O₃ distribution</p>
+                                    <p class="text-2xl font-bold text-green-700 text-center mt-2">10-12 MPa√m</p>
+                                    <p class="text-center text-sm text-green-600 font-semibold">Stable &amp; Reliable</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-yellow-100 border-2 border-yellow-600 p-4 rounded stat-card" style="border-color: #d97706;">
+                                <h4 class="text-xl font-bold text-gray-900 text-center mb-2">Gradient</h4>
+                                <p class="text-center text-sm text-gray-700 mb-3">CV 5-15%</p>
+                                <div class="bg-white p-3 rounded">
+                                    <p class="text-sm text-gray-800">⚠ Mixed t/c phases</p>
+                                    <p class="text-sm text-gray-800">⚠ Partial variation</p>
+                                    <p class="text-2xl font-bold text-yellow-700 text-center mt-2">6-8 MPa√m</p>
+                                    <p class="text-center text-sm text-yellow-600 font-semibold">40% Lower</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-red-100 border-2 border-red-600 p-4 rounded stat-card" style="border-color: #dc2626;">
+                                <h4 class="text-xl font-bold text-gray-900 text-center mb-2">Segregated</h4>
+                                <p class="text-center text-sm text-gray-700 mb-3">CV &gt; 15%</p>
+                                <div class="bg-white p-3 rounded">
+                                    <p class="text-sm text-gray-800">✗ Cubic &amp; monoclinic zones</p>
+                                    <p class="text-sm text-gray-800">✗ Clusters, poor mixing</p>
+                                    <p class="text-2xl font-bold text-red-700 text-center mt-2">4-6 MPa√m</p>
+                                    <p class="text-center text-sm text-red-600 font-semibold">60% Loss</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 p-4 rounded">
+                            <h4 class="text-lg font-bold text-gray-900 mb-2">Achieving Uniform Distribution:</h4>
+                            <ul class="space-y-2 text-gray-800">
+                                <li>• Tight pH control (±0.1)</li>
+                                <li>• Temperature stability (±2°C)</li>
+                                <li>• Aging time &gt; 4 hours</li>
+                                <li>• Wet-chemical co-precipitation for atomic-scale mixing</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            },
             // Agglomeration Prevention
             {
                 title: "Prevention of Hard Agglomerates",
@@ -997,7 +1148,7 @@
                         <h3 class="text-2xl font-bold text-gray-900">Agglomeration Mitigation Strategies</h3>
                         
                         <div class="grid grid-cols-2 gap-6">
-                            <div class="bg-blue-50 border-l-4 border-blue-600 p-4">
+                            <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
                                 <h4 class="text-lg font-bold text-gray-900 mb-3">Chemical Dispersants</h4>
                                 <ul class="space-y-2 text-gray-800">
                                     <li>• Polyacrylic acid (MW 2000-5000)</li>
@@ -1007,7 +1158,7 @@
                                 </ul>
                             </div>
 
-                            <div class="bg-green-50 border-l-4 border-green-600 p-4">
+                            <div class="bg-green-50 border-l-4 border-green-600 p-4 rounded">
                                 <h4 class="text-lg font-bold text-gray-900 mb-3">Advanced Drying</h4>
                                 <ul class="space-y-2 text-gray-800">
                                     <li>• Freeze-drying: index 1.3-1.6</li>
@@ -1018,7 +1169,7 @@
                             </div>
                         </div>
 
-                        <div class="bg-purple-50 border-l-4 border-purple-600 p-4">
+                        <div class="bg-purple-50 border-l-4 border-purple-600 p-4 rounded">
                             <h4 class="text-lg font-bold text-gray-900 mb-2">Post-Calcination Processing</h4>
                             <ul class="space-y-2 text-gray-800">
                                 <li>• Wet attrition milling: Effective but introduces 0.02-0.05 wt% contamination</li>
@@ -1041,7 +1192,7 @@
                         <h3 class="text-2xl font-bold text-gray-900">Target Properties & Innovation Pathways</h3>
                         
                         <div class="grid grid-cols-2 gap-6 mb-6">
-                            <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded border-2 border-blue-600">
+                            <div class="p-6 rounded border-2 stat-card" style="border-color: #2563eb; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);">
                                 <h4 class="text-lg font-bold text-gray-900 mb-3">Current State</h4>
                                 <div class="space-y-2">
                                     <div>
@@ -1055,7 +1206,7 @@
                                 </div>
                             </div>
 
-                            <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded border-2 border-green-600">
+                            <div class="p-6 rounded border-2 stat-card" style="border-color: #059669; background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);">
                                 <h4 class="text-lg font-bold text-gray-900 mb-3">Future Targets</h4>
                                 <div class="space-y-2">
                                     <div>
@@ -1073,15 +1224,15 @@
                         <div class="bg-gray-50 p-6 rounded">
                             <h4 class="text-xl font-bold text-gray-900 mb-4">Priority Research Areas</h4>
                             <div class="grid grid-cols-3 gap-4">
-                                <div class="bg-white p-4 rounded border border-gray-300">
+                                <div class="bg-white p-4 rounded border-2 border-gray-300 stat-card">
                                     <p class="font-bold text-gray-900 mb-2">Advanced Drying</p>
                                     <p class="text-sm text-gray-700">Pilot-scale spray freeze drying studies</p>
                                 </div>
-                                <div class="bg-white p-4 rounded border border-gray-300">
+                                <div class="bg-white p-4 rounded border-2 border-gray-300 stat-card">
                                     <p class="font-bold text-gray-900 mb-2">Grain Engineering</p>
                                     <p class="text-sm text-gray-700">Systematic grain size-performance mapping</p>
                                 </div>
-                                <div class="bg-white p-4 rounded border border-gray-300">
+                                <div class="bg-white p-4 rounded border-2 border-gray-300 stat-card">
                                     <p class="font-bold text-gray-900 mb-2">AI/ML Integration</p>
                                     <p class="text-sm text-gray-700">Machine learning for process parameter optimization</p>
                                 </div>
@@ -1091,43 +1242,43 @@
                 `
             },
             // AI / ML Integration
-{
-    title: "AI-Driven Process Optimization",
-    content: `
-        <div class="space-y-6">
+            {
+                title: "AI-Driven Process Optimization",
+                content: `
+                    <div class="space-y-6">
 
-            <div class="bg-gray-50 p-6 rounded">
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">Use of Machine Learning Models</h3>
-                <p class="text-xl text-gray-800 leading-relaxed">
-                    We can use Machine Learning models to learn from process-history data and automatically suggest the best combination of pH, temperature, aging time and sintering schedule reducing trial-and-error and improving powder quality in real time.
-                </p>
-            </div>
+                        <div class="bg-gray-50 p-6 rounded">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">Use of Machine Learning Models</h3>
+                            <p class="text-xl text-gray-800 leading-relaxed">
+                                We can use Machine Learning models to learn from process-history data and automatically suggest the best combination of pH, temperature, aging time and sintering schedule reducing trial-and-error and improving powder quality in real time.
+                            </p>
+                        </div>
 
-            <div class="space-y-4">
-                <h3 class="text-2xl font-bold text-gray-900">Why This Matters</h3>
-                <ul class="list-disc text-gray-800 pl-6 space-y-1 text-lg">
-                    <li>Current optimization is empirical, slow & experience-dependent</li>
-                    <li>ML can predict outcomes before running experiments</li>
-                    <li>Significantly reduces R&D cycles, cost & batch rejection</li>
-                    <li>Supports scale-up and consistent powder properties in mass production</li>
-                </ul>
-            </div>
+                        <div class="space-y-4">
+                            <h3 class="text-2xl font-bold text-gray-900">Why This Matters</h3>
+                            <ul class="list-disc text-gray-800 pl-6 space-y-1 text-lg">
+                                <li>Current optimization is empirical, slow & experience-dependent</li>
+                                <li>ML can predict outcomes before running experiments</li>
+                                <li>Significantly reduces R&D cycles, cost & batch rejection</li>
+                                <li>Supports scale-up and consistent powder properties in mass production</li>
+                            </ul>
+                        </div>
 
-            <div class="bg-blue-50 border-l-4 border-blue-600 p-4">
-                <p class="text-lg text-gray-800">
-                    <span class="font-bold">Direct Value:</span> AI shifts us from reactive troubleshooting → predictive control.
-                </p>
-            </div>
+                        <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
+                            <p class="text-lg text-gray-800">
+                                <span class="font-bold">Direct Value:</span> AI shifts us from reactive troubleshooting → predictive control.
+                            </p>
+                        </div>
 
-            <div class="bg-green-50 border-l-4 border-green-600 p-4">
-                <p class="text-lg text-gray-800">
-                    <span class="font-bold">ROI Angle:</span> Early studies show 60–80% reduction in experimental workload (DoE baseline) — ML automation can push this even further.
-                </p>
-            </div>
+                        <div class="bg-green-50 border-l-4 border-green-600 p-4 rounded">
+                            <p class="text-lg text-gray-800">
+                                <span class="font-bold">ROI Angle:</span> Early studies show 60–80% reduction in experimental workload (DoE baseline) — ML automation can push this even further.
+                            </p>
+                        </div>
 
-        </div>
-    `
-},
+                    </div>
+                `
+            },
            // Conclusions
             {
                 title: "Conclusions",
@@ -1136,22 +1287,22 @@
                         <h3 class="text-2xl font-bold text-gray-900 text-center mb-6">Key Takeaways</h3>
                         
                         <div class="space-y-4">
-                            <div class="bg-blue-50 border-l-4 border-blue-600 p-5">
+                            <div class="bg-blue-50 border-l-4 border-blue-600 p-5 rounded">
                                 <h4 class="text-xl font-bold text-gray-900 mb-2">1. Optimal Synthesis Route</h4>
                                 <p class="text-gray-800">Co-precipitation with oxalate process provides best cost-performance balance: agglomeration index 2.1, cost $12-18/kg</p>
                             </div>
 
-                            <div class="bg-green-50 border-l-4 border-green-600 p-5">
+                            <div class="bg-green-50 border-l-4 border-green-600 p-5 rounded">
                                 <h4 class="text-xl font-bold text-gray-900 mb-2">2. Critical Parameters</h4>
                                 <p class="text-gray-800">3.0-3.5 mol% Y₂O₃ stabilization with 0.3-0.5 μm grain size maximizes cutting tool performance</p>
                             </div>
 
-                            <div class="bg-purple-50 border-l-4 border-purple-600 p-5">
+                            <div class="bg-purple-50 border-l-4 border-purple-600 p-5 rounded">
                                 <h4 class="text-xl font-bold text-gray-900 mb-2">3. Process Control</h4>
                                 <p class="text-gray-800">Uniform yttria distribution (CV &lt;5%) and maintaining &gt;92% tetragonal phase essential for consistent properties</p>
                             </div>
 
-                            <div class="bg-yellow-50 border-l-4 border-yellow-600 p-5">
+                            <div class="bg-yellow-50 border-l-4 border-yellow-600 p-5 rounded">
                                 <h4 class="text-xl font-bold text-gray-900 mb-2">4. Scale-Up Strategy</h4>
                                 <p class="text-gray-800">Real-time monitoring, continuous processing, and data-driven optimization enable successful commercialization</p>
                             </div>
@@ -1165,52 +1316,64 @@
             },
 
             // References
-            {
-                title: "Key References",
-                content: `
-                    <div class="space-y-4">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-6">Selected References</h3>
-                        
-                        <div class="space-y-3 text-sm">
-                            <div class="bg-gray-50 p-3 rounded">
-                                <p class="font-semibold text-gray-900">Garvie RC, Hannink RH, Pascoe RT.</p>
-                                <p class="text-gray-700">"Ceramic Steel?" Nature 258, 703–704 (1975).</p>
-                            </div>
-                            
-                            <div class="bg-gray-50 p-3 rounded">
-                                <p class="font-semibold text-gray-900">Lange FF.</p>
-                                <p class="text-gray-700">"Transformation Toughening," Journal of Materials Science 17, 225–234 (1982).</p>
-                            </div>
-                            
-                            <div class="bg-gray-50 p-3 rounded">
-                                <p class="font-semibold text-gray-900">Li J, Sun X.</p>
-                                <p class="text-gray-700">"Synthesis of Nanostructured Zirconia Powders via Hydrothermal Processing," J. Am. Ceram. Soc. 90, 1327–1332 (2007).</p>
-                            </div>
-                            
-                            <div class="bg-gray-50 p-3 rounded">
-                                <p class="font-semibold text-gray-900">Chen, Y., Liu, M.</p>
-                                <p class="text-gray-700">Ceram. Int., 50(8), 13247–13259 (2024).</p>
-                            </div>
-                            
-                            <div class="bg-gray-50 p-3 rounded">
-                                <p class="font-semibold text-gray-900">Grand View Research.</p>
-                                <p class="text-gray-700">"Ceramic Cutting Tools Market Size Report, 2025–2030." Market Analysis Report, Feb 2024.</p>
-                            </div>
-                        </div>
+{
+    title: "Key References",
+    content: `
+        <div class="space-y-4">
 
-                        <div class="mt-8 text-center">
-                            <p class="text-gray-600 text-sm">For complete reference list, please refer to the full technical report</p>
-                        </div>
-                    </div>
-                `
-            },
+            <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">References</h3>
 
+            <div class="grid grid-cols-2 gap-6 text-sm text-gray-800">
+
+                <!-- Column 1 -->
+                <ul class="space-y-2">
+
+                    <li><strong>Garvie RC, Hannink RH, Pascoe RT.</strong> Nature 258, 703–704 (1975).</li>
+                    <li><strong>Lange FF.</strong> J. Mater. Sci. 17, 225–234 (1982).</li>
+                    <li><strong>Li J., Sun X.</strong> JACS 90, 1327–1332 (2007).</li>
+                    <li><strong>Chen Y., Liu M.</strong> Ceram. Int., 50(8), 13247–13259 (2024).</li>
+                    <li><strong>Grand View Research.</strong> Ceramic Cutting Tools Market Report (2024).</li>
+                    <li><strong>Zhang L. et al.</strong> JACS 107(3), 1856–1871 (2024).</li>
+                    <li><strong>Tanaka H. et al.</strong> J. Mater. Sci. 58(15), 6523–6538 (2023).</li>
+
+                    <li><strong>Patel S.K., Reddy M.</strong> Mater. Today Proc. 72, 2145–2152 (2023).</li>
+                    <li><strong>Anderson J.M. et al.</strong> Chem. Eng. Res. Des. 198, 445–457 (2023).</li>
+                    <li><strong>Kumar R., Singh P.</strong> Powder Technol. 425, 118563 (2023).</li>
+                    <li><strong>Lange F.F. et al.</strong> J. Mater. Res. 38, 1124–1135 (2023).</li>
+                    <li><strong>ICA.</strong> Technical Report ICA-2024-07 (2024).</li>
+                </ul>
+
+                <!-- Column 2 -->
+                <ul class="space-y-2">
+
+                    <li><strong>Lopez M. et al.</strong> J. Eur. Ceram. Soc. 44, 3789–3801 (2024).</li>
+                    <li><strong>Nguyen T.A., Kim J.H.</strong> Ceram. Int. 49, 36124–36133 (2023).</li>
+                    <li><strong>Frost K.L. et al.</strong> Drying Technol. 41, 2045–2058 (2023).</li>
+                    <li><strong>Martinez R. et al.</strong> J. Supercrit. Fluids, 203, 106087 (2024).</li>
+                    <li><strong>Park S.H., Lee D.W.</strong> Powder Technol. 418, 118289 (2023).</li>
+                    <li><strong>Thomas B. et al.</strong> Ultrason. Sonochem. 98, 106512 (2023).</li>
+                    <li><strong>Deville S. et al.</strong> Acta Mater. 245, 118634 (2023).</li>
+
+                    <li><strong>Chen I.W., Wang X.H.</strong> JACS 106, 5234–5251 (2023).</li>
+                    <li><strong>Grasso S. et al.</strong> Mater. Sci. Eng. R, 156, 100755 (2024).</li>
+
+                </ul>
+
+            </div>
+
+            <p class="text-xs text-gray-600 mt-4 text-center">
+                *Full extended bibliography included in the technical report.
+            </p>
+
+        </div>
+    `
+},
             // Thank You Slide
             {
                 title: "Thank You",
                 content: `
                     <div class="flex-center space-y-8">
-                        <h1 class="text-5xl font-bold text-gray-900">Thank You</h1>
+                        <h1 class="text-5xl font-bold">Thank You</h1>
                         <div class="text-2xl text-gray-700 text-center">
                             Questions &amp; Discussion
                         </div>
@@ -1230,6 +1393,7 @@
         const slideContent = document.getElementById('slide-content');
         const slideTitle = document.getElementById('slide-title');
         const slideCounter = document.getElementById('slide-counter');
+        const progressFill = document.getElementById('progress-fill');
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
 
@@ -1239,9 +1403,16 @@
             slideTitle.textContent = slides[currentSlide].title;
             slideCounter.textContent = `Slide ${currentSlide + 1} of ${slides.length}`;
             
+            // Update progress bar
+            const progress = ((currentSlide + 1) / slides.length) * 100;
+            progressFill.style.width = `${progress}%`;
+            
             // Update button states
             prevBtn.disabled = currentSlide === 0;
             nextBtn.disabled = currentSlide === slides.length - 1;
+            
+            // Scroll to top
+            slideContent.scrollTop = 0;
         }
 
         // Navigation functions
